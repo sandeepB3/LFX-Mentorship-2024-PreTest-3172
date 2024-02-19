@@ -11,16 +11,16 @@
    - [Model Examples](#2-model-examples)
 
 ### 2. Rustls Plugin
-   - [Building and Executing the Plugin](#building-and-executing-the-plugin)
-   - [Summary & Execution Result of Example](#summary--execution-result-of-example)
+   - [Building and Installing the Plugin](#1-building-and-installing-the-plugin)
+   - [Summary & Execution Result of Example](#2-summary--execution-result-of-example)
 
 ### 3. Approach for Building the WASI-NN Burn Backend
    - [Analogy to Rustls Plugin](#analogy-to-rustls-plugin)
    - [Analogy to WASI-NN PyTorch Plugin](#analogy-to-wasi-nn-pytorch-plugin)
      
 ### 4. Miscellaneous
-   - [Applicant Details](#applicant-details)
-   - [References](#references)
+   - [Applicant Details](#1-applicant-details)
+   - [References](#2-references)
 
 ## 🌐 Introduction
 The following section of the readme file delves into the Burn framework, aiming to comprehend its intricacies and elucidate the process of developing a deep learning model using Burn. Subsequently, we will explore the development of the Rustls plugin, guide through its installation, and demonstrate an example execution with Wasmedge and the Rustls plugin. Lastly, we will examine an approach that I believe is well-suited for constructing the WASI-NN Burn backend. This will be established by creating an analogy to the building and execution process of the Rustls plugin and the WASI-NN PyTorch plugin.
@@ -127,7 +127,112 @@ http://localhost:8000
 **Inference:** Upon examining the model examples, I gained insights into how the Burn framework facilitates the access of pretrained architectures and weights from other frameworks. As demonstrated earlier, the image classification web directory utilized the SqueezeNet model by loading the pretrained weights and architecture from the squeezenet1.onnx file. Hence, these examples can also be employed as a test suite for validating the WASI-NN Burn plugin once it is developed.
 
 ## Rustls Plugin
+### 1. Building and Installing the Plugin
 
+> **Understanding the Plugin:** WasmEdge Rustls plug-in is a component that allows Rust programs running on WasmEdge to use the Rustls library instead of OpenSSL for secure communication, providing a more modern and secure option.
+
+As per the provided [guide](https://wasmedge.org/docs/contribute/source/plugin/rusttls), to build and execute the rustls plugin. The prerequisites are satisfied:
+
+#### Installing CMake
+```bash
+brew install cmake
+```
+<div align="center">
+   <img width="798" alt="img6" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/53afbd39-15c3-4162-8292-e87c25afed0c">
+</div>
+
+#### Installing WasmEdge runtime for current user following the [installation guide](https://wasmedge.org/docs/start/install/)
+```bash
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
+```
+Running the following command to make the installed binary available in the current session
+```bash
+source $HOME/.wasmedge/env
+```
+Moving on, I have cloned the WasmEdge repository, selecting the specified branch `hydai/0.13.5_ggml_lts` as outlined in the pre-test instructions.
+```bash
+git clone -b hydai/0.13.5_ggml_lts --single-branch https://github.com/WasmEdge/WasmEdge.git
+```
+<div align="center">
+   <img width="688" alt="img7" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/924f903d-1020-40b7-b892-fd9094264266">
+</div>
+
+Navigating to the Rustls Plug-in Directory & Building the Plug-in 
+```bash
+cd WasmEdge/plugins/wasmedge_rustls
+cargo build --release
+```
+<div align="center">
+   <img width="757" alt="Screenshot 2024-02-19 at 1 35 01 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/0409db49-2003-41a6-9c29-bc8410ca6a09">
+</div>
+
+Following which, the system has generated a libwasmedge_rustls.dylib dynamic library file in the target/release directory. To install the rustls plug-in for user-specific purposes, we copy the libwasmedge_rustls.so file to the ~/.wasmedge/plugin folder.
+> In macOS we obtain the (libwasmedge_rustls.dylib) dynamic library file, which is essentially the same concept as (libwasmedge_rustls.so) shared object files on Unix-like systems (e.g., Linux).
+```bash
+cd target/release
+cp libwasmedge_rustls.dylib ~/.wasmedge/plugin/
+```
+<div align="center">
+   <img width="759" alt="img9" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/c4ae37d3-0fbc-4aea-b921-b26b829744dc">
+</div>
+
+Added the wasm32-wasi as a compilation target for rust.
+```bash
+cd ~ 
+rustup target add wasm32-wasi
+```
+**Inference:** We are now prepared to execute the examples, demonstrating the utilization of the rustls plug-in and providing a summary of your build process and the results obtained during execution.
+
+### 2. Summary & Execution Result of Example
+
+I have chosen the [wasmedge_hyper_demo/client-https](https://github.com/WasmEdge/wasmedge_hyper_demo/tree/main/client-https) as my example demonstration.
+> **Understanding the code:** When we navigate to the `wasmedge_hyper_demo/client-https/src/main.rs`, we see that the provided rust program acts as an HTTP client using the Hyper library and communicates with a server over HTTPS. In this case, the HTTPS communication is facilitated by the wasmedge_hyper_rustls crate, which is designed to be used in WebAssembly (WasmEdge) environments. The wasmedge_hyper_rustls crate uses the Rustls library (an alternative to OpenSSL) under the hood for handling the TLS (Transport Layer Security) encryption.
+
+<div align="center">
+   <img width="784" alt="img10" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/c58e67cd-93f3-4ad5-8a4f-e0cc86ca26cf">
+</div>
+
+**To demonstrate this example we clone the wasmedge_hyper_demo repository, navigate to client-https and build the client-https project with the wasm32-wasi compilation target.**
+```bash
+git clone https://github.com/WasmEdge/wasmedge_hyper_demo
+cd wasmedge_hyper_demo/client-https
+cargo build --target wasm32-wasi --release
+```
+<div align="center">
+   <img width="763" alt="img11" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/36124d63-13ad-4342-ab44-d31cb3c9c93c">
+</div>
+
+Now, we compile the `wasmedge_hyper_client_https.wasm` file present in `target/wasm32-wasi/release` directory as `hyper_client_https.wasm` file to the current `client-https` directory.
+```bash
+wasmedge compile target/wasm32-wasi/release/wasmedg e_hyper_client_https.wasm hyper_client_https.wasm
+```
+<div align="center">
+   <img width="762" alt="Screenshot 2024-02-19 at 2 22 47 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/da86b75c-4f4f-4ebd-972e-201453bc6ffe">
+</div>
+
+Finally, we use the wasmedge runtime (installed with the rustls plugin to execute the `hyper_client_https.wasm` file.
+```bash
+wasmedge hyper_client_https.wasm
+```
+<div align="center">
+   <img width="769" alt="img13" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/50ff86ee-7359-4672-bc68-ff9e1403247f">
+</div>
+
+**Inference:** As demonstrated above we built and compiled an example rust program that acts as an HTTP client using the Hyper library and communicates with a server over HTTPS, and this communication is facilitated by wasmedge_hyper_rustls crate which utilizes the rustls plugin. Hence, as per my understanding we had already installed the rustls plugin to our wasmedge runtime, so when we executed the `hyper_client_https.wasm` file the rustls plugin was called to extends its use.
+
+## Approach for Building the WASI-NN Burn Backend
+### 1. Analogy to Rustls Plugin
+### 2. Analogy to WASI-NN PyTorch Plugin
+
+
+
+## Miscellaneous
+### 1. Applicant Details
+### 2. References
+
+
+
+## Conclusion
 
 
 
