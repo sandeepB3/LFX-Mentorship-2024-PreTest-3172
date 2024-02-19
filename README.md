@@ -265,13 +265,21 @@ I have applied in the LFX Mentorship Portal under WasmEdge for the issue: Integr
 
 ### 2. References
 https://wasmedge.org/docs/develop/rust/wasinn/pytorch/
+
 https://wasmedge.org/docs/contribute/source/plugin/rusttls/
+
 https://github.com/second-state/WasmEdge-WASINN-examples/
+
 https://wasmedge.org/docs/start/install/
+
 https://github.com/WebAssembly/wasi-nn/
+
 https://github.com/WasmEdge/WasmEdge/
+
 https://github.com/tracel-ai/models/
+
 https://github.com/tracel-ai/burn/
+
 https://burn.dev/book/
 
 
