@@ -28,6 +28,11 @@ The following section of the readme file delves into the Burn framework, aiming 
 
 ## Framework Execution: Burn.rs
 ### 1. The Burn Book
+Pedagogical materials serve as the crucial initial step in the learning process. Therefore, my first exploration led me to the ["Burn Book"](https://burn.dev/book/), a comprehensive resource that guides users through the creation of a basic burn application. This tutorial specifically demonstrates the process of achieving the addition of two tensors using the WGPU backend within the burn module.
+
+
+
+
 
 
 
