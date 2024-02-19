@@ -15,8 +15,8 @@
    - [Summary & Execution Result of Example](#2-summary--execution-result-of-example)
 
 ### 3. Approach for Building the WASI-NN Burn Backend
-   - [Analogy to Rustls Plugin](#analogy-to-rustls-plugin)
-   - [Analogy to WASI-NN PyTorch Plugin](#analogy-to-wasi-nn-pytorch-plugin)
+   - [Analogy to Rustls Plugin](#1-analogy-to-rustls-plugin)
+   - [Analogy to WASI-NN PyTorch Plugin](#2-analogy-to-wasi-nn-pytorch-plugin)
      
 ### 4. Miscellaneous
    - [Applicant Details](#1-applicant-details)
@@ -222,17 +222,58 @@ wasmedge hyper_client_https.wasm
 
 ## Approach for Building the WASI-NN Burn Backend
 ### 1. Analogy to Rustls Plugin
+
+In the process of building and installing the plugin, let's delve into the actual implementation of the Rustls plugin. If we examine the `lib.rs` file situated at `WasmEdge/plugins/wasmedge_rustls/src /lib.rs`, we observe that it defines a Rust module functioning as a plugin for the Wasmedge runtime. This module, named "rustls_client," encapsulates functionalities associated with the Rustls TLS library, catering to secure communication needs. Within its scope, the module encompasses error handling mechanisms, TLS connection management, and various I/O operations.
+
+<div align="center">
+   <img width="1459" alt="img14" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/6ef2f066-c13f-4fcf-bfa9-df25e8489d92">
+</div>
+
+From here if we look into the [installation guidelines](https://wasmedge.org/docs/start/install#install-wasmedge-plug-ins-and-dependencies) of WasmEdge, we find a section which tell's us how we can extend WasmEdge's functionality by installing plug-ins and dependencies.
+
+To install **WasmEdge with the TLS plug-in**, we run the following command.
+```bash
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- --plugins wasmedge_rustls
+```
+
+From here we can conclude that all plugin implementations and installation follows a similar procedure, so keeping this analogy of plugin development we look into the WASI-NN plugin, particularly with the PyTorch backend.
+
 ### 2. Analogy to WASI-NN PyTorch Plugin
 
+We will firstly be looking into the plugin implementation for the WASI-NN Pytorch Backend, for which we examine the `torch.h` file and `torch.cpp` file situated at `WasmEdge/plugins/wasi_nn`, the `torch.h` file provids C++ code that defines a set of structures and functions related to WebAssembly System Interface for Neural Networks (WASINN) with a focus on PyTorch integration and the `torch.cpp` file provides code that facilitates the integration of PyTorch models into the WASINN environment, allowing for the execution of neural network computations in a WebAssembly context. It handles loading models, setting inputs, performing computations, and retrieving outputs, with conditional compilation for PyTorch backend support.
 
+Once implemented, one can build and intsall this plugin in a similar fashion to how we built and intsalled the rustls plugin to the WasmEdge runtime. Additionally one can also install the WASI-NN Pytorch backend plugin by running the following command:
+```bash
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- --plugins wasmedge_rustls
+```
+
+Now we look into a test suite for validating the WASI-NN Pytorch backend plugin, we refer to the following [documentation](https://wasmedge.org/docs/develop/rust/wasinn/pytorch/):
+<div align="center">
+   <img width="891" alt="img15" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/c9855db9-e959-44f3-b55a-ec0c49ae4c02">
+</div>
+
+Thus, once the WASI-NN Burn backend is implemented we can build and execute a burn example model in a similar fashion as shown above.
 
 ## Miscellaneous
 ### 1. Applicant Details
+I have applied in the LFX Mentorship Portal under WasmEdge for the issue: Integrate of burn.rs as a new backend for WASI-NN, following are my submissions:
+
+**Cover Letter:** https://drive.google.com/file/d/1ih75KwN0RYGGGsUopEbE34drxzVHNFf9/view?usp=sharing
+
+**Resume:** https://drive.google.com/file/d/1_zy1pqf3RQ2bsGObFZDKPv-bpFtU_oRk/view?usp=sharing
+
+
 ### 2. References
+https://wasmedge.org/docs/develop/rust/wasinn/pytorch/
+https://wasmedge.org/docs/contribute/source/plugin/rusttls/
+https://github.com/second-state/WasmEdge-WASINN-examples/
+https://wasmedge.org/docs/start/install/
+https://github.com/WebAssembly/wasi-nn/
+https://github.com/WasmEdge/WasmEdge/
+https://github.com/tracel-ai/models/
+https://github.com/tracel-ai/burn/
+https://burn.dev/book/
 
-
-
-## Conclusion
 
 
 
