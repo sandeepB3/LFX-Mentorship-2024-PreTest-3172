@@ -22,3 +22,6 @@
 ### 4. Miscellaneous
    - [Applicant Details](#applicant-details)
    - [References](#references)
+
+## 🌐 Introduction
+The following section of the readme file delves into the Burn framework, aiming to comprehend its intricacies and elucidate the process of developing a deep learning model using Burn. Subsequently, we will explore the development of the Rustls plugin, guide through its installation, and demonstrate an example execution with Wasmedge and the Rustls plugin. Lastly, we will examine an approach that I believe is well-suited for constructing the WASI-NN Burn backend. This will be established by creating an analogy to the building and execution process of the Rustls plugin and the WASI-NN PyTorch plugin.
