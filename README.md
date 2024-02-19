@@ -18,4 +18,7 @@
 ### 3. Approach for Building the WASI-NN Burn Backend
    - [Analogy to Rustls Plugin](#analogy-to-rustls-plugin)
    - [Analogy to WASI-NN PyTorch Plugin](#analogy-to-wasi-nn-pytorch-plugin)
-
+     
+### 4. Miscellaneous
+   - [Applicant Details](#applicant-details)
+   - [References](#references)
