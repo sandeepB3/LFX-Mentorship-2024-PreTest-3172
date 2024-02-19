@@ -7,7 +7,7 @@
 
 ## 📚 Table Of Contents
 ### 1. Framework Execution: Burn.rs
-   - [The Burn Book](#the-burn-book)
+   - [The Burn Book](#1-the-burn-book)
    - [Examples](#examples)
    - [Pre-trained Models](#pre-trained-models)
 
