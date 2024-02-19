@@ -30,9 +30,8 @@ The following section of the readme file delves into the Burn framework, aiming 
 Pedagogical materials serve as the crucial initial step in the learning process. Therefore, my first exploration led me to the ["Burn Book"](https://burn.dev/book/), a comprehensive resource that guides users through the creation of a basic burn application. This tutorial specifically demonstrates the process of achieving the addition of two tensors using the WGPU backend within the burn module.
 
 **Prerequisite:** The host OS must have the **rust compiler** and **cargo package manager** installed.
-<div align="center">
-   <img width="674" alt="Screenshot 2024-02-19 at 7 09 58 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/e46ade8d-f7c5-44ae-a786-d8c9d8cc00aa">
-</div>
+
+![image1](./images/img1.png)
 
 
 To install rustup on Linux or macOS:
@@ -52,14 +51,10 @@ cargo add burn --features wgpu
 cargo build
 ```
 Following is the code snippet present in `src/main.rs`:
-<div align="center">
-   <img width="995" alt="img2" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/1e4b22ec-3cae-4510-a908-44f8aae6be80">
-</div>
+![image2](./images/img2.png)
 
 By running `cargo run`, following is the obtained result:
-<div align="center">
-   <img width="1148" alt="Screenshot 2024-02-19 at 7 40 09 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/ff3c1ed1-2488-469c-8344-33a371aa9d68">
-</div>
+![image3](./images/img3.png)
 
 <h3 align="center">
    Burn Workflow: From Training to Inference 
@@ -91,9 +86,7 @@ first-burn-model
 **Troubleshooting:** Though they are small issues which could be identified easily, but studying burn framework becomes time consuming while resolving these errors, so I opted to use the [burn-book](https://github.com/tracel-ai/burn/tree/main/burn-book) present in their repository which has the latest updates but hasn't been pushed to production.
 
 Hence due to inaccuracies in the burn book, first-burn-model consisted lot of errors, so I **cloned the burn repo** used and ran the model present in `./burn/examples/guide` using `cargo run --example guide` to observe the training process through the basic CLI dashboard:
-<div align="center">
-   <img width="1425" alt="Screenshot 2024-02-19 at 8 31 33 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/a19bccfc-baff-49d3-a58c-03f873e6daeb">
-</div>
+![image4](./images/img4.png)
 
 **Inference:** Hence using the burn book, I was able to understand the **Basic Burn Workflow of training to inference**, and obtained a CLI dashboard demonstrating the training progress of the train set and validation set, with the metrices of Loss and Accuracy against the number of iterations. Hence by the end, I understood the key components that serve as the building blocks of the framework: `Backend, Autodiff, Tensor, Module, Learner, Metric, Config, Record & Dataset`
 
@@ -120,9 +113,7 @@ Accessing the Web Demo
 ```plaintext
 http://localhost:8000
 ```
-<div align="center">
-   <img width="1470" alt="img5" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/6bf2c55a-0bae-4793-aba2-620d828f02d6">
-</div>
+![image5](./images/img5.png)
 
 **Inference:** Upon examining the model examples, I gained insights into how the Burn framework facilitates the access of pretrained architectures and weights from other frameworks. As demonstrated earlier, the image classification web directory utilized the SqueezeNet model by loading the pretrained weights and architecture from the squeezenet1.onnx file. Hence, these examples can also be employed as a test suite for validating the WASI-NN Burn plugin once it is developed.
 
@@ -137,9 +128,7 @@ As per the provided [guide](https://wasmedge.org/docs/contribute/source/plugin/r
 ```bash
 brew install cmake
 ```
-<div align="center">
-   <img width="798" alt="img6" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/53afbd39-15c3-4162-8292-e87c25afed0c">
-</div>
+![image6](./images/img6.png)
 
 #### Installing WasmEdge runtime for current user following the [installation guide](https://wasmedge.org/docs/start/install/)
 ```bash
@@ -153,18 +142,14 @@ Moving on, I have cloned the WasmEdge repository, selecting the specified branch
 ```bash
 git clone -b hydai/0.13.5_ggml_lts --single-branch https://github.com/WasmEdge/WasmEdge.git
 ```
-<div align="center">
-   <img width="688" alt="img7" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/924f903d-1020-40b7-b892-fd9094264266">
-</div>
+![image7](./images/img7.png)
 
 Navigating to the Rustls Plug-in Directory & Building the Plug-in 
 ```bash
 cd WasmEdge/plugins/wasmedge_rustls
 cargo build --release
 ```
-<div align="center">
-   <img width="757" alt="Screenshot 2024-02-19 at 1 35 01 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/0409db49-2003-41a6-9c29-bc8410ca6a09">
-</div>
+![image8](./images/img8.png)
 
 Following which, the system has generated a libwasmedge_rustls.dylib dynamic library file in the target/release directory. To install the rustls plug-in for user-specific purposes, we copy the libwasmedge_rustls.so file to the ~/.wasmedge/plugin folder.
 > In macOS we obtain the (libwasmedge_rustls.dylib) dynamic library file, which is essentially the same concept as (libwasmedge_rustls.so) shared object files on Unix-like systems (e.g., Linux).
@@ -172,9 +157,7 @@ Following which, the system has generated a libwasmedge_rustls.dylib dynamic lib
 cd target/release
 cp libwasmedge_rustls.dylib ~/.wasmedge/plugin/
 ```
-<div align="center">
-   <img width="759" alt="img9" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/c4ae37d3-0fbc-4aea-b921-b26b829744dc">
-</div>
+![image9](./images/img9.png)
 
 Added the wasm32-wasi as a compilation target for rust.
 ```bash
@@ -188,9 +171,7 @@ rustup target add wasm32-wasi
 I have chosen the [wasmedge_hyper_demo/client-https](https://github.com/WasmEdge/wasmedge_hyper_demo/tree/main/client-https) as my example demonstration.
 > **Understanding the code:** When we navigate to the `wasmedge_hyper_demo/client-https/src/main.rs`, we see that the provided rust program acts as an HTTP client using the Hyper library and communicates with a server over HTTPS. In this case, the HTTPS communication is facilitated by the wasmedge_hyper_rustls crate, which is designed to be used in WebAssembly (WasmEdge) environments. The wasmedge_hyper_rustls crate uses the Rustls library (an alternative to OpenSSL) under the hood for handling the TLS (Transport Layer Security) encryption.
 
-<div align="center">
-   <img width="784" alt="img10" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/c58e67cd-93f3-4ad5-8a4f-e0cc86ca26cf">
-</div>
+![image10](./images/img10.png)
 
 **To demonstrate this example we clone the wasmedge_hyper_demo repository, navigate to client-https and build the client-https project with the wasm32-wasi compilation target.**
 ```bash
@@ -198,25 +179,20 @@ git clone https://github.com/WasmEdge/wasmedge_hyper_demo
 cd wasmedge_hyper_demo/client-https
 cargo build --target wasm32-wasi --release
 ```
-<div align="center">
-   <img width="763" alt="img11" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/36124d63-13ad-4342-ab44-d31cb3c9c93c">
-</div>
+
+![image11](./images/img11.png)
 
 Now, we compile the `wasmedge_hyper_client_https.wasm` file present in `target/wasm32-wasi/release` directory as `hyper_client_https.wasm` file to the current `client-https` directory.
 ```bash
 wasmedge compile target/wasm32-wasi/release/wasmedg e_hyper_client_https.wasm hyper_client_https.wasm
 ```
-<div align="center">
-   <img width="762" alt="Screenshot 2024-02-19 at 2 22 47 PM" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/da86b75c-4f4f-4ebd-972e-201453bc6ffe">
-</div>
+![image12](./images/img12.png)
 
-Finally, we use the wasmedge runtime (installed with the rustls plugin to execute the `hyper_client_https.wasm` file.
+Finally, we use the wasmedge runtime (installed with the rustls plugin) to execute the `hyper_client_https.wasm` file.
 ```bash
 wasmedge hyper_client_https.wasm
 ```
-<div align="center">
-   <img width="769" alt="img13" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/50ff86ee-7359-4672-bc68-ff9e1403247f">
-</div>
+![image13](./images/img13.png)
 
 **Inference:** As demonstrated above we built and compiled an example rust program that acts as an HTTP client using the Hyper library and communicates with a server over HTTPS, and this communication is facilitated by wasmedge_hyper_rustls crate which utilizes the rustls plugin. Hence, as per my understanding we had already installed the rustls plugin to our wasmedge runtime, so when we executed the `hyper_client_https.wasm` file the rustls plugin was called to extends its use.
 
@@ -225,9 +201,7 @@ wasmedge hyper_client_https.wasm
 
 In the process of building and installing the plugin, let's delve into the actual implementation of the Rustls plugin. If we examine the `lib.rs` file situated at `WasmEdge/plugins/wasmedge_rustls/src /lib.rs`, we observe that it defines a Rust module functioning as a plugin for the Wasmedge runtime. This module, named "rustls_client," encapsulates functionalities associated with the Rustls TLS library, catering to secure communication needs. Within its scope, the module encompasses error handling mechanisms, TLS connection management, and various I/O operations.
 
-<div align="center">
-   <img width="1459" alt="img14" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/6ef2f066-c13f-4fcf-bfa9-df25e8489d92">
-</div>
+![image14](./images/img14.png)
 
 From here if we look into the [installation guidelines](https://wasmedge.org/docs/start/install#install-wasmedge-plug-ins-and-dependencies) of WasmEdge, we find a section which tell's us how we can extend WasmEdge's functionality by installing plug-ins and dependencies.
 
@@ -248,9 +222,8 @@ curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/insta
 ```
 
 Now we look into a test suite for validating the WASI-NN Pytorch backend plugin, we refer to the following [documentation](https://wasmedge.org/docs/develop/rust/wasinn/pytorch/):
-<div align="center">
-   <img width="891" alt="img15" src="https://github.com/sandeepB3/LFX-Mentorship-2024-PreTest-3172/assets/107111616/c9855db9-e959-44f3-b55a-ec0c49ae4c02">
-</div>
+
+![image15](./images/img15.png)
 
 Thus, once the WASI-NN Burn backend is implemented we can build and execute a burn example model in a similar fashion as shown above.
 
