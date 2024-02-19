@@ -7,15 +7,15 @@
 
 ## 📚 Table Of Contents
 ### 1. Framework Execution: Burn.rs
-   - [The Burn Book](README.md#1-the-burn-book)
-   - [Examples](README.md#2-examples)
-   - [Pre-trained Models](README.md#3-pre-trained-models)
+   - [The Burn Book](#the-burn-book)
+   - [Examples](#examples)
+   - [Pre-trained Models](#pre-trained-models)
 
 ### 2. Rustls Plugin
-   - [Building and Executing the Plugin](README.md#1-building-and-executing-the-plugin)
-   - [Summary & Execution Result of Example](README.md#2-summary--execution-result-of-example)
+   - [Building and Executing the Plugin](#building-and-executing-the-plugin)
+   - [Summary & Execution Result of Example](#summary--execution-result-of-example)
 
 ### 3. Approach for Building the WASI-NN Burn Backend
-   - [Analogy to Rustls Plugin](README.md#1-analogy-to-rustls-plugin)
-   - [Analogy to WASI-NN PyTorch Plugin](README.md#2-analogy-to-wasi-nn-pytorch-plugin)
+   - [Analogy to Rustls Plugin](#analogy-to-rustls-plugin)
+   - [Analogy to WASI-NN PyTorch Plugin](#analogy-to-wasi-nn-pytorch-plugin)
 
